@@ -1,17 +1,29 @@
 const db = require('./db_helper');
 
 const APILogRequest = {
-    tableName: 'tbl_api_log_request',
-    fields: {
-        id: 'id',
-        reqUniqueID: 'req_unique_id',
-        method: 'method',
-        url: 'url',
-        headers: 'req_headers',
-        APIHitTime: 'api_hit_time',
-        reqData: 'req_data',
-        ip: 'ip'
-    },
+    // tableName: 'tbl_api_log_request',
+    // fields: {
+    //     id: 'id',
+    //     reqUniqueID: 'req_unique_id',
+    //     method: 'method',
+    //     url: 'url',
+    //     headers: 'req_headers',
+    //     APIHitTime: 'api_hit_time',
+    //     reqData: 'req_data',
+    //     ip: 'ip'
+    // },
+    insertSQLStatement: `
+    INSERT
+    INTO
+    tbl_api_log_request
+    SET
+    method = ?,
+    url = ?,
+    req_headers = ?,
+    api_hit_time = ?,
+    req_data = ?,
+    ip = ?,
+    req_unique_id = ?`,
     /**
      * API request log details
      * @param {Object} apiDetails
@@ -34,19 +46,7 @@ const APILogRequest = {
                 ip,
                 reqUniqueID
             } = apiDetails;
-            const queryString = `
-            INSERT
-            INTO
-            ${this.tableName}
-            SET
-            ${this.fields.method} = ?,
-            ${this.fields.url} = ?,
-            ${this.fields.headers} = ?,
-            ${this.fields.APIHitTime} = ?,
-            ${this.fields.reqData} = ?,
-            ${this.fields.ip} = ?,
-            ${this.fields.reqUniqueID} = ?`;
-            const query = db.format(queryString,
+            const query = db.format(this.insertSQLStatement,
                 [
                     method,
                     url,
@@ -57,12 +57,8 @@ const APILogRequest = {
                     reqUniqueID
                 ]);
             db.query(query)
-                .then((result) => {
-                    resolve(result);
-                })
-                .catch((error) => {
-                    reject(error)
-                });
+                .then(result => resolve(result))
+                .catch(error => reject(error));
         });
     }
 };

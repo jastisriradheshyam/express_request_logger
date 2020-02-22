@@ -1,14 +1,24 @@
 const db = require('./db_helper');
 
 const APILogResponse = {
-    tableName: 'tbl_api_log_response',
-    fields: {
-        id: 'id',
-        reqUniqueID: 'req_unique_id',
-        APIEndTime: 'api_end_time',
-        resData: 'res_data',
-        reqTotalTime: 'req_total_time'
-    },
+    // tableName: 'tbl_api_log_response',
+    // fields: {
+    //     id: 'id',
+    //     reqUniqueID: 'req_unique_id',
+    //     APIEndTime: 'api_end_time',
+    //     resData: 'res_data',
+    //     reqTotalTime: 'req_total_time'
+    // },
+    insertSQLStatement: `
+    INSERT
+    INTO
+    tbl_api_log_response
+    SET
+    req_unique_id = ?,
+    api_end_time = ?,
+    res_data = ?,
+    req_total_time = ?
+    `,
     /**
      * API response log details
      * @param {Object} apiDetails
@@ -26,16 +36,7 @@ const APILogResponse = {
                 resBody,
                 reqTotalTime
             } = apiDetails;
-            const queryString = `
-            INSERT
-            INTO
-            ${this.tableName}
-            SET
-            ${this.fields.reqUniqueID} = ?,
-            ${this.fields.APIEndTime} = ?,
-            ${this.fields.resData} = ?,
-            ${this.fields.reqTotalTime} = ?`;
-            const query = db.format(queryString,
+            const query = db.format(this.insertSQLStatement,
                 [
                     reqUniqueID,
                     APIEndTime,
@@ -43,12 +44,8 @@ const APILogResponse = {
                     reqTotalTime
                 ]);
             db.query(query)
-                .then((result) => {
-                    resolve(result);
-                })
-                .catch((error) => {
-                    reject(error)
-                });
+                .then(result => resolve(result))
+                .catch(error => reject(error));
         });
     }
 };
