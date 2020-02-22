@@ -40,7 +40,7 @@ const APILogRequest = function (req, res, next) {
 /**
  * API log response
  * @param {Object} req 
- * @param {Obejct} res 
+ * @param {Object} res 
  * @param {Function} next 
  */
 const APILogResponse = function (req, res, next) {
@@ -66,7 +66,7 @@ const APILogResponse = function (req, res, next) {
 
 /**
  * log the response in database
- * @param {Obejct} req 
+ * @param {Object} req 
  * @param {Object} res 
  * @param {Object} data 
  */

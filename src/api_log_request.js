@@ -13,8 +13,15 @@ const APILogRequest = {
         ip: 'ip'
     },
     /**
-     * api log details
-     * @param {Object} apiDetails 
+     * API request log details
+     * @param {Object} apiDetails
+     * @param {String} apiDetails.method - HTTP method
+     * @param {String} apiDetails.url - HTTP URL
+     * @param {Object} apiDetails.headers - HTTP HEADERS
+     * @param {String} apiDetails.APIHitTime - HTTP Request Time
+     * @param {Object} apiDetails.reqBody - HTTP Request body
+     * @param {String} apiDetails.ip - HTTP Request IP
+     * @param {String} apiDetails.reqUniqueID - HTTP server auto generated alpha-numeric ID
      */
     addAPILogRequest: function (apiDetails) {
         return new Promise(async (resolve, reject) => {

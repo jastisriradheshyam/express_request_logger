@@ -10,8 +10,13 @@ const APILogResponse = {
         reqTotalTime: 'req_total_time'
     },
     /**
-     * api log details
-     * @param {Object} apiDetails 
+     * API response log details
+     * @param {Object} apiDetails
+     * @param {String} apiDetails.reqUniqueID - HTTP server auto generated alpha-numeric ID
+     * @param {String} apiDetails.APIEndTime - HTTP Request end time
+     * @param {Object} apiDetails.resBody - HTTP Response body
+     * @param {Number} apiDetails.reqTotalTime - HTTP Request to Response total time
+     * 
      */
     addAPILogResponse: function (apiDetails) {
         return new Promise(async (resolve, reject) => {
