@@ -1,6 +1,6 @@
 # Express request logger
 
-logs the request and response to MySQL database.
+Logs the request and response to MySQL database.
 
 ## Features
 
@@ -20,8 +20,8 @@ logs the request and response to MySQL database.
 ## Drawbacks
 
 - requires `express` and `body-parser` or similar package.
-- cannot store the response body of piped reponses
+- cannot store the response body of piped responses
 
 ## Contributors
 
-- Jasti Sri Radhe Shyam (@jastisriradheshyam)
+- Jasti Sri Radhe Shyam ([@jastisriradheshyam](https://github.com/jastisriradheshyam))
